@@ -15,16 +15,10 @@ const connection = mysql.createConnection({
 
 connection.connect(err => {
     if(err){
-        console.log(err)
+        throw err
     } else {
         console.log('Connected to MySQL server')
     }
-});
-
-const port = 4000
-
-app.listen(port, () => {
-    console.log(`Car insurance server listening on port ${port}`)
 });
 
 app.get('/country', (req, res) => {
@@ -41,13 +35,11 @@ app.get('/country', (req, res) => {
 
 
 
-app.get('/api/customers', (req, res) => {
-  const customers = [
-    {id: 1, firstName: 'John', lastName: 'Doe'},
-    {id: 2, firstName: 'Brad', lastName: 'Traversy'},
-    {id: 3, firstName: 'Mary', lastName: 'Swanson'},
-  ];
-
-  res.json(customers);
+app.post('/test', (req, res) => {
+    res.send('got a post request')
 });
 
+const port = process.env.PORT || 4000
+app.listen(port, () => {
+    console.log(`Car insurance server listening on port ${port}...`)
+});
