@@ -10,7 +10,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: black;
 }
 
 .App-link {
@@ -18,6 +18,34 @@
 }
 
 .car-agent-form{
-  display: flex
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #ffffff;
 }
 
+.car-agent-view {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  width: 70vw;
+  height: 70vh;
+  padding: 2%;
+}
+
+.form-input{
+  margin-left:5px !important;
+  margin-right:5px !important;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+  flex:1;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
