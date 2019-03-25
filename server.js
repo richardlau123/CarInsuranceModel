@@ -62,25 +62,60 @@ app.get('/driver', (req, res) => {
     })
 });
 
-app.post('/vehicle/select', (req, res) => {
-  
-    console.log(req.body, req.params)
-    res.status(202).json("testing")
-    // connection.query('SELECT * FROM country', (err, result) => {
-    //     if(err){
-    //         return res.send(err)
-    //     } else {
-    //         console.log(result)
-    //         return res.json({
-    //             data: result
-    //         })
-    //     }
-    // })
+//select specific vehicle with vin number
+app.get('/driver/select/:licensenumber', (req, res) => {
+    q = 'SELECT * FROM driver where licensenumber = \''+req.params['licensenumber']+'\';'
+
+    console.log(q)
+    connection.query(q, (err, result) => {
+        if(err){
+            return res.send(err)
+        } else {
+            console.log(result)
+            return res.json({
+                data: result
+            })
+        }
+    })
 });
 
 
 
-app.post('/test', (req, res) => {
+//select driver who buys all brand of car
+app.get('/driver/buyallbrand', (req, res) => {
+    connection.query('select d.licensenumber,d.name from driver d where not exists (select v.brand from vehicle v where not exists (select v2.brand from vehicle v2 where d.licensenumber = v2.licensenumber and v.brand=v2.brand));', (err, result) => {
+        if(err){
+            return res.send(err)
+        } else {
+            console.log(result)
+            return res.json({
+                data: result
+            })
+        }
+    })
+});
+
+//select specific vehicle with vin number
+app.get('/vehicle/select/:vin', (req, res) => {
+    q = 'SELECT * FROM vehicle where vin = \''+req.params['vin']+'\';'
+
+    console.log(q)
+    connection.query(q, (err, result) => {
+        if(err){
+            return res.send(err)
+        } else {
+            console.log(result)
+            return res.json({
+                data: result
+            })
+        }
+    })
+});
+
+
+
+app.post('/test/:op', (req, res) => {
+    console.log(req.body, req.params)
     res.send('got a post request')
 });
 
