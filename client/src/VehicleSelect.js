@@ -5,7 +5,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-class DriverSelect extends Component{
+class VehicleSelect extends Component{
 
     state = {
         model: false,
@@ -30,8 +30,14 @@ class DriverSelect extends Component{
         })
     }
 
-    handleDriverSelect = () => {
-        
+    handleVehicleSelect = () => {
+        fetch("/country")
+            .then(res => {
+                res.json().then(json => {
+                        console.log(json)
+                })
+            })
+            
     }
 
     searchByLicensePlate = () => {
@@ -43,7 +49,7 @@ class DriverSelect extends Component{
             <div className="car-agent-view" >
             <div className="row">
                 <div className="column">
-                <span>Select from Driver</span>
+                <span>Select from Vehicle Database</span>
                     <FormGroup column="true">
                         <FormControlLabel control={<Checkbox onChange={() => {this.setState({model: !this.state.model})}} checked={this.state.model} value="model"/>} label="Model" />
                         <FormControlLabel control={<Checkbox onChange={() => {this.setState({vin: !this.state.vin})}} />} checked={this.state.vin} label="VIN" />
@@ -55,7 +61,7 @@ class DriverSelect extends Component{
                     </FormGroup>
                 
                 <div className="row">
-                    <Button onClick={this.handleDriverSelect} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
+                    <Button onClick={this.handleVehicleSelect} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
                         View
                     </Button>
                     <Button onClick={this.handleSelectAll} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
@@ -86,4 +92,4 @@ class DriverSelect extends Component{
       }
 }
 
-export default DriverSelect
+export default VehicleSelect
