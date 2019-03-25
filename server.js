@@ -36,6 +36,32 @@ app.get('/country', (req, res) => {
     })
 });
 
+app.get('/vehicle', (req, res) => {
+    connection.query('SELECT * FROM vehicle', (err, result) => {
+        if(err){
+            return res.send(err)
+        } else {
+            console.log(result)
+            return res.json({
+                data: result
+            })
+        }
+    })
+});
+
+app.get('/driver', (req, res) => {
+    connection.query('SELECT * FROM driver', (err, result) => {
+        if(err){
+            return res.send(err)
+        } else {
+            console.log(result)
+            return res.json({
+                data: result
+            })
+        }
+    })
+});
+
 app.post('/vehicle/select', (req, res) => {
   
     console.log(req.body, req.params)
