@@ -14,7 +14,6 @@ class VehicleSelect extends Component{
         brand: false,
         modelYear: false,
         licenseNumber: false,
-        insuranceId: true,
         licensePlateText: ""
     }
 
@@ -26,17 +25,22 @@ class VehicleSelect extends Component{
             brand: true,
             modelYear: true,
             licenseNumber: true,
-            insuranceId: true,
         })
     }
 
-    handleVehicleSelect = () => {
-        fetch("/country")
-            .then(res => {
-                res.json().then(json => {
-                        console.log(json)
-                })
-            })
+    handleVehicleSelect = async () => {
+        let response = await fetch("/vehicle/select", {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({model: "XXXXXXXXXXXXXXXXXXXX"})
+        });
+        // console.log(response)
+        let responseJSON = await response.json()
+        console.log(responseJSON)   
+        
             
     }
 
@@ -57,7 +61,6 @@ class VehicleSelect extends Component{
                         <FormControlLabel control={<Checkbox onChange={() => {this.setState({brand: !this.state.brand})}} checked={this.state.brand} />} label="Brand" />
                         <FormControlLabel control={<Checkbox onChange={() => {this.setState({modelYear: !this.state.modelYear})}} checked={this.state.modelYear}  />} label="Model Year" />
                         <FormControlLabel control={<Checkbox onChange={() => {this.setState({licenseNumber: !this.state.licenseNumber})}} checked={this.state.licenseNumber}  />} label="License Number" />
-                        <FormControlLabel control={<Checkbox onChange={() => {this.setState({insuranceId: !this.state.insuranceId})}} checked={this.state.insuranceId}/>} label="Insurance ID" />
                     </FormGroup>
                 
                 <div className="row">

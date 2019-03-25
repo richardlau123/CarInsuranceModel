@@ -1,16 +1,18 @@
 const express = require('express');
 const cors = require('cors')
 const mysql = require('mysql')
+const bodyparser = require('body-parser')
 
 const app = express();
 
 app.use(cors());
+app.use(bodyparser.json());
 
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'carinsurance',
-    database: 'world'
+    database: 'carinsurance'
 });
 
 connection.connect(err => {
@@ -26,11 +28,28 @@ app.get('/country', (req, res) => {
         if(err){
             return res.send(err)
         } else {
+            console.log(result)
             return res.json({
                 data: result
             })
         }
     })
+});
+
+app.post('/vehicle/select', (req, res) => {
+  
+    console.log(req.body, req.params)
+    res.status(202).json("testing")
+    // connection.query('SELECT * FROM country', (err, result) => {
+    //     if(err){
+    //         return res.send(err)
+    //     } else {
+    //         console.log(result)
+    //         return res.json({
+    //             data: result
+    //         })
+    //     }
+    // })
 });
 
 
