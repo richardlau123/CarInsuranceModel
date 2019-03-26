@@ -16,7 +16,9 @@ class VehicleSelect extends Component{
         modelYear: false,
         licenseNumber: false,
         licensePlateText: "",
-        vehicleData: null
+        vehicleData: null,
+		oldLicensePlateText: "",
+		newLicensePlateText: ""
     }
 
     handleSelectAll = () => {
@@ -44,6 +46,15 @@ class VehicleSelect extends Component{
 
     searchByLicensePlate = async () => {
         let response = await fetch(`/vehicle/select/${this.state.licensePlateText}`)
+        
+        let responseJSON = await response.json()
+        console.log(responseJSON)
+
+        this.setState({vehicleData: responseJSON})
+    }
+	
+	updateByLicensePlate = async () => {
+        let response = await fetch(`/vehicle/update/${this.state.oldLicensePlateText}/${this.state.newLicensePlateText}`)
         
         let responseJSON = await response.json()
         console.log(responseJSON)
@@ -88,6 +99,30 @@ class VehicleSelect extends Component{
                         
                     </form>
                 </div>
+				
+				<div>
+                    <form className="update-form">
+                        <TextField
+                            label="Old License Plate"
+                            className="form-input"
+                            margin="normal"
+                            value={this.state.oldLicensePlateText}
+                            onChange={(e) => {this.setState({ oldLicensePlateText: e.target.value })}}
+                        />
+						<TextField
+                            label="New License Plate"
+                            className="form-input"
+                            margin="normal"
+                            value={this.state.newLicensePlateText}
+                            onChange={(e) => {this.setState({ newLicensePlateText: e.target.value })}}
+                        />
+                        <Button onClick={this.updateByLicensePlate} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
+                            Update
+                        </Button>
+                        
+                    </form>
+                </div>
+				
                 <div className="column">
                     <VehicleView view={this.state.vehicleData}/>
                 </div>
