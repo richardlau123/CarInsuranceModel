@@ -104,16 +104,17 @@ app.get('/vehicle/projection/:model/:vin/:licenseplate/:brand/:modelyear/:licens
     let queryString = 'SELECT '
 
     for(let i = 0; i < 6; i++){
-        if(paramsArray[i][1]){
+        console.log(paramsArray[i][1])
+        if(paramsArray[i][1] == 'true'){
             queryString += `${paramsArray[i][0]},`
         }
     }
 
     queryString = queryString.substring(0, queryString.length - 1).concat(' FROM vehicle')
-
+    console.log(queryString)
     connection.query(queryString, (err, result) => {
         if(err){
-            return res.json({data: {'Error': 'Select at least one column'}})
+            return res.json({data: [{'Error': 'Select at least one column'}]})
         } else {
             return res.json({data: result})
         }

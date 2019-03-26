@@ -4,6 +4,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import VehicleView from './VehicleView.js'
 
 class VehicleSelect extends Component{
 
@@ -32,12 +33,12 @@ class VehicleSelect extends Component{
     handleVehicleProjection = async () => {
         let {model, vin, licensePlate, brand, modelYear, licenseNumber} = this.state
         console.log(this.state)
-        let response = await fetch(`/vehicle/projection/:${model}/:${vin}/:${licensePlate}/:${brand}/:${modelYear}/:${licenseNumber}`)
+        let response = await fetch(`/vehicle/projection/${model}/${vin}/${licensePlate}/${brand}/${modelYear}/${licenseNumber}`)
         
         let responseJSON = await response.json()
-        console.log(responseJSON)
+        console.log(responseJSON.data)
 
-        this.setState({vehicleData: responseJSON})
+        this.setState({vehicleData: responseJSON.data})
         // let response = await fetch("/vehicle/select", {
         //     method: 'POST',
         //     headers: {
@@ -92,7 +93,7 @@ class VehicleSelect extends Component{
                     </form>
                 </div>
                 <div className="column">
-                    
+                    <VehicleView view={this.state.vehicleData}/>
                 </div>
             </div>
             
