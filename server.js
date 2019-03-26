@@ -184,14 +184,29 @@ app.put('/vehicle/insert/:model/:vin/:licenseplate/:brand/:modelyear/:licensenum
     queryString+=+req.params['modelyear']+",";
     queryString+="'"+req.params['licensenumber']+"');";
 
-    console.log(queryString)
-
     connection.query(queryString, (err, result) => {
         if(err){
             console.log(err);
             return res.json({'Error': 'Vehicle cannot be inserted'})
         } else {
             return res.json({'success':'Vehicle is inserted'})
+        }
+    })
+})
+
+//update to a new licenseplate
+app.put('/vehicle/update/:licenseplate/:newlicenseplate', (req, res) => {
+
+    let queryString = 'update Vehicle set licenseplate = ';
+    queryString+="'"+req.params['newlicenseplate']+"' where licenseplate=";
+    queryString+="'"+req.params['licenseplate']+"'";
+
+    connection.query(queryString, (err, result) => {
+        if(err){
+            console.log(err);
+            return res.json({'Error': 'Could not find a vehicle with this license plate or licenseplate has been taken'})
+        } else {
+            return res.json({'success':'Vehicle is updated'})
         }
     })
 })
