@@ -4,7 +4,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import VehicleView from './VehicleView.js'
+import VehicleView from './VehicleView'
 
 class VehicleSelect extends Component{
 
@@ -36,23 +36,19 @@ class VehicleSelect extends Component{
         let response = await fetch(`/vehicle/projection/${model}/${vin}/${licensePlate}/${brand}/${modelYear}/${licenseNumber}`)
         
         let responseJSON = await response.json()
-        console.log(responseJSON.data)
+        console.log(responseJSON)
 
-        this.setState({vehicleData: responseJSON.data})
-        // let response = await fetch("/vehicle/select", {
-        //     method: 'POST',
-        //     headers: {
-        //         'Accept': 'application/json',
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({model: "XXXXXXXXXXXXXXXXXXXX"})
-        // });
-        // console.log(response)
+        this.setState({vehicleData: responseJSON})
             
     }
 
-    searchByLicensePlate = () => {
-        console.log(this.state.licensePlateText)
+    searchByLicensePlate = async () => {
+        let response = await fetch(`/vehicle/select/${this.state.licensePlateText}`)
+        
+        let responseJSON = await response.json()
+        console.log(responseJSON)
+
+        this.setState({vehicleData: responseJSON})
     }
 
     render() {

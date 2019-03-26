@@ -7,18 +7,38 @@ import TableRow from '@material-ui/core/TableRow';
 
 class VehicleView extends Component{
 
-    state = {
-        view: this.props.view
-    }
 
     render(){
-        return (
-           <Table>
-               <TableHead>
-                   
-               </TableHead>
-           </Table>
-        )
+        console.log(this.props.view)
+
+        if(this.props.view){
+            return (
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                             {Object.keys(this.props.view[0]).map(header => {
+                                 console.log(header)
+                                 return <TableCell key={header}>{header}</TableCell>
+                             })}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {this.props.view.map((obj, index) => {
+                            return(
+                                <TableRow key={index}>
+                                    {Object.values(obj).map(value => {
+                                        return <TableCell key={value}>{value}</TableCell>
+                                    })}
+                                 </TableRow>
+                            )
+                        })}
+                    </TableBody>
+                </Table>
+             )
+        } else {
+            return(<div></div>)
+        }
+        
     }
 }
 

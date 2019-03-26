@@ -82,44 +82,46 @@ app.get('/driver/buyallbrand', (req, res) => {
     })
 });
 
-//select specific vehicle with vin number
-app.get('/vehicle/select/:vin', (req, res) => {
-    q = 'SELECT * FROM vehicle where vin = \''+req.params['vin']+'\';'
+app.get('/vehicle/select/:licenseplate', (req, res) => {
+    query = `SELECT * FROM vehicle where licenseplate = '${req.params.licenseplate}';`
 
-    console.log(q)
-    connection.query(q, (err, result) => {
+    connection.query(query, (err, result) => {
         if(err){
-            return res.send(err)
+            return res.json(err)
         } else {
-            console.log(result)
-            return res.json({
-                data: result
-            })
+            if(result){
+                return res.json(result)
+            } else {
+                return res.json([{'Error': 'Could not find a vehicle with this license plate'}])
+            }
+        
         }
     })
-});
+})
+
 
 app.get('/vehicle/projection/:model/:vin/:licenseplate/:brand/:modelyear/:licensenumber', (req, res) => {
     let paramsArray = Object.entries(req.params)
     let queryString = 'SELECT '
 
     for(let i = 0; i < 6; i++){
-        console.log(paramsArray[i][1])
         if(paramsArray[i][1] == 'true'){
             queryString += `${paramsArray[i][0]},`
         }
     }
 
-    queryString = queryString.substring(0, queryString.length - 1).concat(' FROM vehicle')
-    console.log(queryString)
+    queryString = queryString.substring(0, queryString.length - 1).concat(' FROM vehicle;')
+
     connection.query(queryString, (err, result) => {
         if(err){
-            return res.json({data: [{'Error': 'Select at least one column'}]})
+            return res.json([{'Error': 'Select at least one column'}])
         } else {
-            return res.json({data: result})
+            return res.json(result)
         }
     })
 })
+
+
 
 
 const port = process.env.PORT || 4000
