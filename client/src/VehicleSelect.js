@@ -14,7 +14,8 @@ class VehicleSelect extends Component{
         brand: false,
         modelYear: false,
         licenseNumber: false,
-        licensePlateText: ""
+        licensePlateText: "",
+        vehicleData: null
     }
 
     handleSelectAll = () => {
@@ -28,19 +29,24 @@ class VehicleSelect extends Component{
         })
     }
 
-    handleVehicleSelect = async () => {
-        let response = await fetch("/vehicle/select", {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({model: "XXXXXXXXXXXXXXXXXXXX"})
-        });
-        // console.log(response)
-        let responseJSON = await response.json()
-        console.log(responseJSON)   
+    handleVehicleProjection = async () => {
+        let {model, vin, licensePlate, brand, modelYear, licenseNumber} = this.state
+        console.log(this.state)
+        let response = await fetch(`/vehicle/projection/:${model}/:${vin}/:${licensePlate}/:${brand}/:${modelYear}/:${licenseNumber}`)
         
+        let responseJSON = await response.json()
+        console.log(responseJSON)
+
+        this.setState({vehicleData: responseJSON})
+        // let response = await fetch("/vehicle/select", {
+        //     method: 'POST',
+        //     headers: {
+        //         'Accept': 'application/json',
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({model: "XXXXXXXXXXXXXXXXXXXX"})
+        // });
+        // console.log(response)
             
     }
 
@@ -64,7 +70,7 @@ class VehicleSelect extends Component{
                     </FormGroup>
                 
                 <div className="row">
-                    <Button onClick={this.handleVehicleSelect} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
+                    <Button onClick={this.handleVehicleProjection} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
                         View
                     </Button>
                     <Button onClick={this.handleSelectAll} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
@@ -86,7 +92,7 @@ class VehicleSelect extends Component{
                     </form>
                 </div>
                 <div className="column">
-                
+                    
                 </div>
             </div>
             

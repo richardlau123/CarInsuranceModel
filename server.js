@@ -23,19 +23,6 @@ connection.connect(err => {
     }
 });
 
-app.get('/country', (req, res) => {
-    connection.query('SELECT * FROM country', (err, result) => {
-        if(err){
-            return res.send(err)
-        } else {
-            console.log(result)
-            return res.json({
-                data: result
-            })
-        }
-    })
-});
-
 app.get('/vehicle', (req, res) => {
     connection.query('SELECT * FROM vehicle', (err, result) => {
         if(err){
@@ -112,12 +99,27 @@ app.get('/vehicle/select/:vin', (req, res) => {
     })
 });
 
+app.get('/vehicle/projection/:model/:vin/:licenseplate/:brand/:modelyear/:licensenumber', (req, res) => {
+    let paramsArray = Object.entries(req.params)
+    let queryString = 'SELECT '
 
+    for(let i = 0; i < 6; i++){
+        if(paramsArray[i][1]){
+            queryString += `${paramsArray[i][0]},`
+        }
+    }
 
-app.post('/test/:op', (req, res) => {
-    console.log(req.body, req.params)
-    res.send('got a post request')
-});
+    queryString = queryString.substring(0, queryString.length - 1).concat(' FROM vehicle')
+
+    connection.query(queryString, (err, result) => {
+        if(err){
+            return res.json({data: {'Error': 'Select at least one column'}})
+        } else {
+            return res.json({data: result})
+        }
+    })
+})
+
 
 const port = process.env.PORT || 4000
 app.listen(port, () => {
