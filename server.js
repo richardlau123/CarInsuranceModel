@@ -121,6 +121,81 @@ app.get('/vehicle/projection/:model/:vin/:licenseplate/:brand/:modelyear/:licens
     })
 })
 
+//join vehicle and driver
+app.get('/vehicleanddriver', (req, res) => {
+    query = 'SELECT d.name,v.vin,v.modelyear,v.brand,v.model FROM vehicle v,driver d where v.licensenumber=d.licensenumber';
+
+    connection.query(query, (err, result) => {
+        if(err){
+            return res.json(err)
+        } else {
+            if(result){
+                return res.json(result)
+            } else {
+                return res.json([{'Error': 'query failed'}])
+            }
+        
+        }
+    })
+})
+
+app.get('/countbrand', (req, res) => {
+    query = "select count(distinct brand) as 'count' from vehicle;";
+
+    connection.query(query, (err, result) => {
+        if(err){
+            return res.json(err)
+        } else {
+            if(result){
+                return res.json(result)
+            } else {
+                return res.json([{'Error': 'query failed'}])
+            }
+        
+        }
+    })
+})
+
+app.get('/countvehicleinbrand', (req, res) => {
+    query = "select brand,count(*) as 'count' from vehicle group by brand;";
+
+    connection.query(query, (err, result) => {
+        if(err){
+            return res.json(err)
+        } else {
+            if(result){
+                return res.json(result)
+            } else {
+                return res.json([{'Error': 'query failed'}])
+            }
+        
+        }
+    })
+})
+
+//insert new vehicle
+app.put('/vehicle/insert/:model/:vin/:licenseplate/:brand/:modelyear/:licensenumber', (req, res) => {
+
+    let queryString = 'INSERT INTO Vehicle(Model, VIN, LicensePlate, Brand, ModelYear, LicenseNumber) VALUES  (';
+    queryString+= "'"+req.params['model']+"',";
+    queryString+="'"+req.params['vin']+"',";
+    queryString+="'"+req.params['licenseplate']+"',";
+    queryString+="'"+req.params['brand']+"',";
+    queryString+=+req.params['modelyear']+",";
+    queryString+="'"+req.params['licensenumber']+"');";
+
+    console.log(queryString)
+
+    connection.query(queryString, (err, result) => {
+        if(err){
+            console.log(err);
+            return res.json({'Error': 'Vehicle cannot be inserted'})
+        } else {
+            return res.json({'success':'Vehicle is inserted'})
+        }
+    })
+})
+
 
 
 
