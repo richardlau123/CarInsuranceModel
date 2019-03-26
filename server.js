@@ -199,17 +199,16 @@ app.put('/vehicle/insert/:model/:vin/:licenseplate/:brand/:modelyear/:licensenum
 
 
 //delete vehicle with licenseplate = 
-app.get('/vehicle/delete/:licenseplate', (req, res) => {
+app.delete('/vehicle/delete/:licenseplate', (req, res) => {
     query = `DELETE FROM vehicle where licenseplate = '${req.params.licenseplate}';`
-	
 	connection.query(query, (err, result) => {
         if(err){
             return res.json(err)
         } else {
             if(result){
-                return res.json(result)
+                return res.json({'Success':'Vehicle deleted'})
             } else {
-                return res.json([{'Error': 'Could not find a vehicle with this license plate'}])
+                return res.json({'Error': 'Could not find a vehicle with this license plate'})
             }
         
         }
