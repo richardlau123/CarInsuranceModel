@@ -102,7 +102,6 @@ class VehicleSelect extends Component{
     //isSelected = id => this.state.selected.indexOf(id) !== -1;
 
     onCheckChange = obj => {let id = obj['id'];
-        console.log(obj);
         this.setState({selected: this.state.selected.indexOf(id) !== -1 ?
         this.state.selected.filter(word => word !== id) :
         this.state.selected.concat([id])})};
