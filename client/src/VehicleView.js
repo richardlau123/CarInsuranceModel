@@ -30,7 +30,7 @@ class VehicleView extends Component{
                                     <TableCell padding="checkbox">
                                         <Checkbox
                                             checked={isSelected(obj)}
-                                            onChange={onCheckChange(obj)}
+                                            onClick={() => onCheckChange(obj)}
                                         />
                                     </TableCell>
                                     {Object.values(this.props.trim(obj)).map(value => {
