@@ -56,7 +56,7 @@ app.get('/driver/select/:licensenumber', (req, res) => {
     console.log(q)
     connection.query(q, (err, result) => {
         if(err){
-            return res.send(err)
+            return res.json(err)
         } else {
             console.log(result)
             return res.json({
@@ -121,18 +121,19 @@ app.get('/driver/buyallbrand', (req, res) => {
 });
 
 app.get('/vehicle/select/:licenseplate', (req, res) => {
+
     query = `SELECT * FROM vehicle where licenseplate = '${req.params.licenseplate}';`
 
     connection.query(query, (err, result) => {
         if(err){
             return res.json(err)
         } else {
-            if(result){
+            console.log(result)
+            if(result.length > 0){
                 return res.json(result)
             } else {
                 return res.json([{'Error': 'Could not find a vehicle with this license plate'}])
             }
-        
         }
     })
 })

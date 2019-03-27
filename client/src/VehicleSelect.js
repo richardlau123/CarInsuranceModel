@@ -40,6 +40,13 @@ class VehicleSelect extends Component{
     };
 
     searchByLicensePlate = async () => {
+        if(!this.state.licensePlateText){
+            let errorMessage = [{'Error' : 'Please specifiy a license plate to search for'}]
+            this.setState({
+                vehicleData: errorMessage
+            })
+            return
+        }
         let response = await fetch(`/vehicle/select/${this.state.licensePlateText}`);
         
         let responseJSON = await response.json();
@@ -68,11 +75,6 @@ class VehicleSelect extends Component{
         let responseJSON = await response.json();
         this.setState({vehicleData: responseJSON})
     }
-    
-    onChange = async () => {
-        await this.handleVehicleProjection();
-        return this.prepare(this.state.vehicleData);
-    };
 
     render() {
         return (
@@ -115,7 +117,7 @@ class VehicleSelect extends Component{
                     </form>
                 </div>
                 <div className="column">
-                    <VehicleView view={this.prepare(this.state.vehicleData)} onChange={this.onChange()} id={"viewTable"}/>
+                    <VehicleView view={this.prepare(this.state.vehicleData)} id={"viewTable"}/>
                 </div>
             </div>
             
