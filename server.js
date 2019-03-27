@@ -88,7 +88,7 @@ app.put('/driver/insert/:licensenumber/:name/:address/:PhoneNumber/:DateOfBirth'
 
 //delete driver with licensenumber 
 app.delete('/driver/delete/:licensenumber', (req, res) => {
-    query = `DELETE FROM vehicle where licensenumber = '${req.params.licensenumber}';`
+    query = `DELETE FROM driver where licensenumber = '${req.params.licensenumber}';`
     connection.query(query, (err, result) => {
         if(err){
             return res.json(err)
@@ -271,6 +271,7 @@ app.delete('/vehicle/delete/:licenseplate', (req, res) => {
 //delete a set of vehicles by their VINs =
 app.delete('/vehicle/delete', (req, res) => {
     let query = `DELETE FROM vehicle WHERE vin IN ${req.vins};`;
+    console.log(query)
     connection.query(query, (err, result) => {
         if(err){
             return res.json(err)
