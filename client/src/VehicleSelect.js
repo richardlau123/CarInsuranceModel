@@ -19,7 +19,8 @@ class VehicleSelect extends Component{
         licensePlateText: "",
         vehicleData: null,
 		oldValueText: "",
-		newValueText: ""
+		newValueText: "",
+        selected: [],
     }
 
     handleSelectAll = () => {
@@ -63,7 +64,7 @@ class VehicleSelect extends Component{
         this.setState({vehicleData: responseJSON})
     };
 
-    prepare = (data) => {
+    prepare = data => {
         if (!data) {
             return null;
         }
@@ -98,10 +99,39 @@ class VehicleSelect extends Component{
             .catch((err) => {console.log(err.status);});
         //let responseJSON = await response.json()
         //console.log(responseJSON)
+    };
+
+    deleteSelected = () => {
+        let vins = this.state.selected;
+        let set = "(";
+        if(vins.length > 0)
+            set += "'" +vins[0]+ "'";
+        for(let i = 1; i < vins.length; i++) {
+            set += ", '"+vins[i]+"'"
+        }
+        set += ")";
+        console.log(set);
+        Axios.delete('/vehicle/delete', {data: {vins: set}})
+            .then((res) => {this.setState({selected: []}); this.handleVehicleProjection(); this.forceUpdate()})
+            .catch((err) => {console.log(err.status)});
+    };
+
+    trim = obj => {
+        let clone = Object.assign({}, obj);
+        delete clone['id'];
+        return clone;
+    };
+
+    //isSelected = id => this.state.selected.indexOf(id) !== -1;
+
+    onCheckChange = obj => {let id = obj['id'];
+        this.setState({selected: this.state.selected.indexOf(id) !== -1 ?
+        this.state.selected.filter(word => word !== id) :
+        this.state.selected.concat([id])});
 
         //this.setState({vehicleData: responseJSON})
     }
-	
+
 	updateByLicensePlate = async () => {
 		console.log("update by lp")
         Axios.put(`/vehicle/update/lp/${this.state.oldValueText}/${this.state.newValueText}`)
@@ -112,7 +142,7 @@ class VehicleSelect extends Component{
 
         //this.setState({vehicleData: responseJSON})
     }
-	
+
     render() {
         return (
             <div className="car-agent-view" >
@@ -162,7 +192,7 @@ class VehicleSelect extends Component{
                         </Button>
                     </form>
                 </div>
-				<div>
+                <div>
                     <form className="update-form">
                         <TextField
                             label="Old"
@@ -177,7 +207,7 @@ class VehicleSelect extends Component{
                             margin="normal"
                             value={this.state.newValueText}
                             onChange={(e) => {this.setState({ newValueText: e.target.value })}}
-                        />				
+                        />
 						<Button onClick={this.updateByVin} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
                             Update VIN
                         </Button>
@@ -187,7 +217,12 @@ class VehicleSelect extends Component{
                     </form>
                 </div>
                 <div className="column">
-                    <VehicleView view={this.prepare(this.state.vehicleData)} id={"viewTable"}/>
+                    <VehicleView view={this.prepare(this.state.vehicleData)}
+                                 selected={this.state.selected}
+                                 deleteSelected={this.deleteSelected}
+                                 onCheckChange={this.onCheckChange}
+                                 trim={this.trim}
+                                 id={"viewTable"}/>
                 </div>
             </div>
             
