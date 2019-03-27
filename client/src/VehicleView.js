@@ -38,7 +38,7 @@ class VehicleView extends Component{
     isSelected = id => {console.log(this.state.selected); return this.state.selected.indexOf(id) !== -1};
 
     render(){
-        if(this.props.view){
+        if(this.props.view && this.props.view.length > 0){
             return (
                 <div>
                     <Table>
