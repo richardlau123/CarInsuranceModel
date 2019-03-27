@@ -79,7 +79,12 @@ class VehicleSelect extends Component{
 
     handleCountVehicleBrand = async () => {
         let response = await fetch('/countvehicleinbrand');
-        
+        let responseJSON = await response.json();
+        this.setState({vehicleData: responseJSON})
+    }
+
+    handleDriverBuyAllBrand = async () => {
+        let response = await fetch('/driver/buyallbrand');
         let responseJSON = await response.json();
         this.setState({vehicleData: responseJSON})
     }
@@ -109,6 +114,12 @@ class VehicleSelect extends Component{
                 <div className="row">
                     <Button onClick={this.handleCountVehicleBrand} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
                         Get vehicle count by brand
+                    </Button>
+                    
+                </div>
+                <div className="row">
+                    <Button onClick={this.handleDriverBuyAllBrand} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
+                        Drivers who buy cars from all the brand
                     </Button>
                 </div>
                     <form className="car-agent-form">
