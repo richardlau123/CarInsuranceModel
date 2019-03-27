@@ -17,8 +17,8 @@ class VehicleSelect extends Component{
         licenseNumber: false,
         licensePlateText: "",
         vehicleData: null,
-		oldLicensePlateText: "",
-		newLicensePlateText: ""
+		oldVinText: "",
+		newVinText: ""
     }
 
     handleSelectAll = () => {
@@ -53,13 +53,13 @@ class VehicleSelect extends Component{
         this.setState({vehicleData: responseJSON})
     }
 	
-	updateByLicensePlate = async () => {
-        let response = await fetch(`/vehicle/update/${this.state.oldLicensePlateText}/${this.state.newLicensePlateText}`)
+	updateByVin = async () => {
+        let response = await fetch(`/vehicle/update/${this.state.oldVinText}/${this.state.newVinText}`)
         
-        let responseJSON = await response.json()
-        console.log(responseJSON)
+        //let responseJSON = await response.json()
+        //console.log(responseJSON)
 
-        this.setState({vehicleData: responseJSON})
+        //this.setState({vehicleData: responseJSON})
     }
 
     render() {
@@ -103,20 +103,20 @@ class VehicleSelect extends Component{
 				<div>
                     <form className="update-form">
                         <TextField
-                            label="Old License Plate"
+                            label="Old VIN"
                             className="form-input"
                             margin="normal"
-                            value={this.state.oldLicensePlateText}
-                            onChange={(e) => {this.setState({ oldLicensePlateText: e.target.value })}}
+                            value={this.state.oldVinText}
+                            onChange={(e) => {this.setState({ oldVinText: e.target.value })}}
                         />
 						<TextField
-                            label="New License Plate"
+                            label="New VIN"
                             className="form-input"
                             margin="normal"
-                            value={this.state.newLicensePlateText}
-                            onChange={(e) => {this.setState({ newLicensePlateText: e.target.value })}}
+                            value={this.state.newVinText}
+                            onChange={(e) => {this.setState({ newVinText: e.target.value })}}
                         />
-                        <Button onClick={this.updateByLicensePlate} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
+                        <Button onClick={this.updateByVin} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
                             Update
                         </Button>
                         

@@ -194,12 +194,12 @@ app.put('/vehicle/insert/:model/:vin/:licenseplate/:brand/:modelyear/:licensenum
     })
 })
 
-//update to a new licenseplate
-app.put('/vehicle/update/:oldlicenseplate/:newlicenseplate', (req, res) => {
+//update to a new vin
+app.put('/vehicle/update/:oldvin/:newvin', (req, res) => {
 
-    let queryString = 'update Vehicle set licenseplate = ';
-    queryString+="'"+req.params['newlicenseplate']+"' where licenseplate =";
-    queryString+="'"+req.params['oldlicenseplate']+"'";
+    let queryString = 'update Vehicle set vin = ';
+    queryString+="'"+req.params['newvin']+"' where vin =";
+    queryString+="'"+req.params['oldvin']+"'";
 
     connection.query(queryString, (err, result) => {
         if(err){
