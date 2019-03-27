@@ -19,7 +19,7 @@ class VehicleSelect extends Component{
         licensePlateText: "",
         vehicleData: null,
 		oldValueText: "",
-		newValueText: ""
+		newValueText: "",
         selected: [],
     }
 
