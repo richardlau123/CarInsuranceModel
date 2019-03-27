@@ -99,10 +99,10 @@ class VehicleSelect extends Component{
         return clone;
     };
 
-    isSelected = id => this.state.selected.indexOf(id) !== -1;
+    //isSelected = id => this.state.selected.indexOf(id) !== -1;
 
     onCheckChange = obj => {let id = obj['id'];
-        this.setState({selected: this.isSelected(id) ?
+        this.setState({selected: this.state.selected.indexOf(id) !== -1 ?
         this.state.selected.filter(word => word !== id) :
         this.state.selected.concat([id])})};
 
@@ -154,7 +154,6 @@ class VehicleSelect extends Component{
                                  selected={this.state.selected}
                                  deleteSelected={this.deleteSelected}
                                  onCheckChange={this.onCheckChange}
-                                 isSelected={this.isSelected}
                                  trim={this.trim}
                                  id={"viewTable"}/>
                 </div>
