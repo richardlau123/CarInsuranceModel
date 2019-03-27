@@ -5,6 +5,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import VehicleView from './VehicleView'
+import Axios from 'axios';
 
 class VehicleSelect extends Component{
 
@@ -37,6 +38,13 @@ class VehicleSelect extends Component{
         let responseJSON = await response.json();
         this.setState({vehicleData: responseJSON})
             
+    };
+
+    deleteByLicensePlate = async () => {
+        Axios.delete(`/vehicle/delete/${this.state.licensePlateText}`)
+            .then((res) => {this.handleVehicleProjection();})
+            .catch((err) => {console.log(err.status);});
+
     };
 
     searchByLicensePlate = async () => {
@@ -113,6 +121,9 @@ class VehicleSelect extends Component{
                         />
                         <Button onClick={this.searchByLicensePlate} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
                             Search By license plate
+                        </Button>
+                        <Button onClick={this.deleteByLicensePlate} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
+                            Delete By license plate
                         </Button>
                     </form>
                 </div>
