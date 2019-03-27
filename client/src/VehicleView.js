@@ -25,7 +25,7 @@ class VehicleView extends Component{
         set += ")";
         console.log(set);
         axios.delete('/vehicle/delete', {data: {vins: set}})
-            .then((res) => {this.setState({selected: []}); this.forceUpdate()})
+            .then((res) => {this.setState({selected: []}); this.props.view = this.props.onChange(); this.forceUpdate()})
             .catch((err) => {console.log(err.status)});
     };
 

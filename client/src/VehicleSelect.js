@@ -62,6 +62,11 @@ class VehicleSelect extends Component{
         return viewable
     };
 
+    onChange = async () => {
+        await this.handleVehicleProjection();
+        return this.prepare(this.state.vehicleData);
+    };
+
     render() {
         return (
             <div className="car-agent-view" >
@@ -99,7 +104,7 @@ class VehicleSelect extends Component{
                     </form>
                 </div>
                 <div className="column">
-                    <VehicleView view={this.prepare(this.state.vehicleData)}/>
+                    <VehicleView view={this.prepare(this.state.vehicleData)} onChange={this.onChange()} id={"viewTable"}/>
                 </div>
             </div>
             
