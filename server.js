@@ -275,7 +275,38 @@ app.delete('/vehicle/delete', (req, res) => {
     })
 });
 
+//update to a new vin
+app.put('/vehicle/update/vin/:oldvin/:newvin', (req, res) => {
+	console.log(`update vin`)
 
+	let query = `UPDATE vehicle SET vin = '${req.params.newvin}' where vin = '${req.params.oldvin}';`
+
+    connection.query(query, (err, result) => {
+        if(err){
+            console.log(err);
+            return res.json({'Error': 'Could not find a vehicle with this license plate or licenseplate has been taken'})
+        } else {
+            return res.json({'success':'Vehicle is updated'})
+        }
+    })
+})
+
+//update to a new licenseplate
+app.put('/vehicle/update/lp/:licenseplate/:newlicenseplate', (req, res) => {
+console.log(`update lp`)
+    let queryString = 'update Vehicle set licenseplate = ';
+    queryString+="'"+req.params['newlicenseplate']+"' where licenseplate=";
+    queryString+="'"+req.params['licenseplate']+"'";
+
+    connection.query(queryString, (err, result) => {
+        if(err){
+            console.log(err);
+            return res.json({'Error': 'Could not find a vehicle with this license plate or licenseplate has been taken'})
+        } else {
+            return res.json({'success':'Vehicle is updated'})
+        }
+    })
+})
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
