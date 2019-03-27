@@ -68,6 +68,11 @@ class VehicleSelect extends Component{
         let responseJSON = await response.json();
         this.setState({vehicleData: responseJSON})
     }
+    
+    onChange = async () => {
+        await this.handleVehicleProjection();
+        return this.prepare(this.state.vehicleData);
+    };
 
     render() {
         return (
@@ -110,7 +115,7 @@ class VehicleSelect extends Component{
                     </form>
                 </div>
                 <div className="column">
-                    <VehicleView view={this.prepare(this.state.vehicleData)}/>
+                    <VehicleView view={this.prepare(this.state.vehicleData)} onChange={this.onChange()} id={"viewTable"}/>
                 </div>
             </div>
             
