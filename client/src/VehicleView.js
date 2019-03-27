@@ -15,10 +15,7 @@ class VehicleView extends Component{
     };
 
     deleteSelected = () => {
-        let vins = [];
-        for (let ind in this.state.selected) {
-            vins.push(this.props.view[ind]['vin']);
-        }
+        let vins = this.state.selected;
         let set = "(";
         if(vins.length > 0)
             set += "'" +vins[0]+ "'";
@@ -28,7 +25,7 @@ class VehicleView extends Component{
         set += ")";
         console.log(set);
         axios.delete('/vehicle/delete', {data: {vins: set}})
-            .then((res) => {console.log("success")})
+            .then((res) => {this.setState({selected: []}); this.forceUpdate()})
             .catch((err) => {console.log(err.status)});
     };
 
@@ -38,7 +35,7 @@ class VehicleView extends Component{
         return clone;
     };
 
-    isSelected = id => {return this.state.selected.indexOf(id) !== -1};
+    isSelected = id => {console.log(this.state.selected); return this.state.selected.indexOf(id) !== -1};
 
     render(){
         if(this.props.view){
