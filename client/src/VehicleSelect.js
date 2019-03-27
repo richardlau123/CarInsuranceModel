@@ -18,6 +18,8 @@ class VehicleSelect extends Component{
         licenseNumber: false,
         licensePlateText: "",
         vehicleData: null,
+		oldValueText: "",
+		newValueText: ""
     }
 
     handleSelectAll = () => {
@@ -84,6 +86,28 @@ class VehicleSelect extends Component{
         this.setState({vehicleData: responseJSON})
     }
 
+	updateByVin = async () => {
+		console.log("update by vin")
+        Axios.put(`/vehicle/update/vin/${this.state.oldValueText}/${this.state.newValueText}`)
+			.then((res) => {this.handleVehicleProjection();})
+            .catch((err) => {console.log(err.status);});
+        //let responseJSON = await response.json()
+        //console.log(responseJSON)
+
+        //this.setState({vehicleData: responseJSON})
+    }
+	
+	updateByLicensePlate = async () => {
+		console.log("update by lp")
+        Axios.put(`/vehicle/update/lp/${this.state.oldValueText}/${this.state.newValueText}`)
+			.then((res) => {this.handleVehicleProjection();})
+            .catch((err) => {console.log(err.status);});
+        //let responseJSON = await response.json()
+        //console.log(responseJSON)
+
+        //this.setState({vehicleData: responseJSON})
+    }
+	
     render() {
         return (
             <div className="car-agent-view" >
@@ -124,6 +148,30 @@ class VehicleSelect extends Component{
                         </Button>
                         <Button onClick={this.deleteByLicensePlate} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
                             Delete By license plate
+                        </Button>
+                    </form>
+                </div>
+				<div>
+                    <form className="update-form">
+                        <TextField
+                            label="Old"
+                            className="form-input"
+                            margin="normal"
+                            value={this.state.oldValueText}
+                            onChange={(e) => {this.setState({ oldValueText: e.target.value })}}
+                        />
+						<TextField
+                            label="New"
+                            className="form-input"
+                            margin="normal"
+                            value={this.state.newValueText}
+                            onChange={(e) => {this.setState({ newValueText: e.target.value })}}
+                        />				
+						<Button onClick={this.updateByVin} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
+                            Update VIN
+                        </Button>
+                        <Button onClick={this.updateByLicensePlate} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
+                            Update LicensePlate
                         </Button>
                     </form>
                 </div>
