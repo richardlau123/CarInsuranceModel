@@ -62,6 +62,13 @@ class VehicleSelect extends Component{
         return viewable
     };
 
+    handleCountVehicleBrand = async () => {
+        let response = await fetch('/countvehicleinbrand');
+        
+        let responseJSON = await response.json();
+        this.setState({vehicleData: responseJSON})
+    }
+
     render() {
         return (
             <div className="car-agent-view" >
@@ -76,13 +83,17 @@ class VehicleSelect extends Component{
                         <FormControlLabel control={<Checkbox onChange={() => {this.setState({modelYear: !this.state.modelYear})}} checked={this.state.modelYear}  />} label="Model Year" />
                         <FormControlLabel control={<Checkbox onChange={() => {this.setState({licenseNumber: !this.state.licenseNumber})}} checked={this.state.licenseNumber}  />} label="License Number" />
                     </FormGroup>
-                
                 <div className="row">
                     <Button onClick={this.handleVehicleProjection} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
                         View
                     </Button>
                     <Button onClick={this.handleSelectAll} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
                         Select All
+                    </Button>
+                </div>
+                <div className="row">
+                    <Button onClick={this.handleCountVehicleBrand} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
+                        Get vehicle count by brand
                     </Button>
                 </div>
                     <form className="car-agent-form">
