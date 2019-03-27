@@ -28,7 +28,6 @@ app.get('/vehicle', (req, res) => {
         if(err){
             return res.send(err)
         } else {
-            console.log(result)
             return res.json({
                 data: result
             })
@@ -41,7 +40,6 @@ app.get('/driver', (req, res) => {
         if(err){
             return res.send(err)
         } else {
-            console.log(result)
             return res.json({
                 data: result
             })
@@ -52,13 +50,10 @@ app.get('/driver', (req, res) => {
 //select specific vehicle with vin number
 app.get('/driver/select/:licensenumber', (req, res) => {
     q = 'SELECT * FROM driver where licensenumber = \''+req.params['licensenumber']+'\';'
-
-    console.log(q)
     connection.query(q, (err, result) => {
         if(err){
-            return res.send(err)
+            return res.json(err)
         } else {
-            console.log(result)
             return res.json({
                 data: result
             })
@@ -78,7 +73,6 @@ app.put('/driver/insert/:licensenumber/:name/:address/:PhoneNumber/:DateOfBirth'
 
     connection.query(queryString, (err, result) => {
         if(err){
-            console.log(err);
             return res.json({'Error': 'Driver cannot be inserted'})
         } else {
             return res.json({'success':'Driver is inserted'})
@@ -112,27 +106,24 @@ app.get('/driver/buyallbrand', (req, res) => {
         if(err){
             return res.send(err)
         } else {
-            console.log(result)
-            return res.json({
-                data: result
-            })
+            return res.json(result)
         }
     })
 });
 
 app.get('/vehicle/select/:licenseplate', (req, res) => {
+
     query = `SELECT * FROM vehicle where licenseplate = '${req.params.licenseplate}';`
 
     connection.query(query, (err, result) => {
         if(err){
             return res.json(err)
         } else {
-            if(result){
+            if(result.length > 0){
                 return res.json(result)
             } else {
                 return res.json([{'Error': 'Could not find a vehicle with this license plate'}])
             }
-        
         }
     })
 })
@@ -224,7 +215,6 @@ app.put('/vehicle/insert/:model/:vin/:licenseplate/:brand/:modelyear/:licensenum
 
     connection.query(queryString, (err, result) => {
         if(err){
-            console.log(err);
             return res.json({'Error': 'Vehicle cannot be inserted'})
         } else {
             return res.json({'success':'Vehicle is inserted'})
@@ -285,7 +275,38 @@ app.delete('/vehicle/delete', (req, res) => {
     })
 });
 
+//update to a new vin
+app.put('/vehicle/update/vin/:oldvin/:newvin', (req, res) => {
+	console.log(`update vin`)
 
+	let query = `UPDATE vehicle SET vin = '${req.params.newvin}' where vin = '${req.params.oldvin}';`
+
+    connection.query(query, (err, result) => {
+        if(err){
+            console.log(err);
+            return res.json({'Error': 'Could not find a vehicle with this license plate or licenseplate has been taken'})
+        } else {
+            return res.json({'success':'Vehicle is updated'})
+        }
+    })
+})
+
+//update to a new licenseplate
+app.put('/vehicle/update/lp/:licenseplate/:newlicenseplate', (req, res) => {
+console.log(`update lp`)
+    let queryString = 'update Vehicle set licenseplate = ';
+    queryString+="'"+req.params['newlicenseplate']+"' where licenseplate=";
+    queryString+="'"+req.params['licenseplate']+"'";
+
+    connection.query(queryString, (err, result) => {
+        if(err){
+            console.log(err);
+            return res.json({'Error': 'Could not find a vehicle with this license plate or licenseplate has been taken'})
+        } else {
+            return res.json({'success':'Vehicle is updated'})
+        }
+    })
+})
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
