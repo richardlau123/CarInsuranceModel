@@ -9,8 +9,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <VehicleSelect/>
-          {/* <InsuranceInsert/> */}
-          
+            { /* <InsuranceInsert/> */ }
         </header>
       </div>
     );

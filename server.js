@@ -1,7 +1,7 @@
 const express = require('express');
-const cors = require('cors')
-const mysql = require('mysql')
-const bodyparser = require('body-parser')
+const cors = require('cors');
+const mysql = require('mysql');
+const bodyparser = require('body-parser');
 
 const app = express();
 
@@ -251,7 +251,7 @@ app.put('/vehicle/update/:licenseplate/:newlicenseplate', (req, res) => {
 
 
 
-//delete vehicle with licenseplate = 
+//delete vehicles with licenseplate =
 app.delete('/vehicle/delete/:licenseplate', (req, res) => {
     query = `DELETE FROM vehicle where licenseplate = '${req.params.licenseplate}';`
 	connection.query(query, (err, result) => {
@@ -259,18 +259,35 @@ app.delete('/vehicle/delete/:licenseplate', (req, res) => {
             return res.json(err)
         } else {
             if(result){
-                return res.json({'Success':'Vehicle deleted'})
+                return res.json({'Success':'Vehicle(s) deleted'})
             } else {
                 return res.json({'Error': 'Could not find a vehicle with this license plate'})
             }
         
         }
     })
-})
+});
+
+//delete a set of vehicles by their VINs =
+app.delete('/vehicle/delete', (req, res) => {
+    let query = `DELETE FROM vehicle WHERE vin IN ${req.vins};`;
+    connection.query(query, (err, result) => {
+        if(err){
+            return res.json(err)
+        } else {
+            if(result){
+                return res.json({'Success':'Vehicle(s) deleted'})
+            } else {
+                return res.json({'Error': 'Could not find a vehicle with this license plate'})
+            }
+
+        }
+    })
+});
 
 
 
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 4000;
 app.listen(port, () => {
     console.log(`Car insurance server listening on port ${port}...`)
 });

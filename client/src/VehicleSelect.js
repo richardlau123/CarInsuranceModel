@@ -16,7 +16,7 @@ class VehicleSelect extends Component{
         modelYear: false,
         licenseNumber: false,
         licensePlateText: "",
-        vehicleData: null
+        vehicleData: null,
     }
 
     handleSelectAll = () => {
@@ -31,25 +31,36 @@ class VehicleSelect extends Component{
     }
 
     handleVehicleProjection = async () => {
-        let {model, vin, licensePlate, brand, modelYear, licenseNumber} = this.state
-        console.log(this.state)
-        let response = await fetch(`/vehicle/projection/${model}/${vin}/${licensePlate}/${brand}/${modelYear}/${licenseNumber}`)
+        let {model, vin, licensePlate, brand, modelYear, licenseNumber} = this.state;
+        let response = await fetch(`/vehicle/projection/${model}/true/${licensePlate}/${brand}/${modelYear}/${licenseNumber}`);
         
-        let responseJSON = await response.json()
-        console.log(responseJSON)
-
+        let responseJSON = await response.json();
         this.setState({vehicleData: responseJSON})
             
-    }
+    };
 
     searchByLicensePlate = async () => {
-        let response = await fetch(`/vehicle/select/${this.state.licensePlateText}`)
+        let response = await fetch(`/vehicle/select/${this.state.licensePlateText}`);
         
-        let responseJSON = await response.json()
-        console.log(responseJSON)
-
+        let responseJSON = await response.json();
         this.setState({vehicleData: responseJSON})
-    }
+    };
+
+    prepare = (data) => {
+        if (!data) {
+            return null;
+        }
+        let viewable = [];
+        for(let i in data) {
+            let obj = data[i];
+            let clone = Object.assign({}, obj);
+            clone['id']=clone['vin'];
+            if(!this.state.vin)
+                delete clone['vin'];
+            viewable.push(clone);
+        }
+        return viewable
+    };
 
     render() {
         return (
@@ -85,11 +96,10 @@ class VehicleSelect extends Component{
                         <Button onClick={this.searchByLicensePlate} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
                             Search By license plate
                         </Button>
-                        
                     </form>
                 </div>
                 <div className="column">
-                    <VehicleView view={this.state.vehicleData}/>
+                    <VehicleView view={this.prepare(this.state.vehicleData)}/>
                 </div>
             </div>
             
