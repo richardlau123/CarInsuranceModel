@@ -270,7 +270,7 @@ app.delete('/vehicle/delete/:licenseplate', (req, res) => {
 
 //delete a set of vehicles by their VINs =
 app.delete('/vehicle/delete', (req, res) => {
-    let query = `DELETE FROM vehicle WHERE vin IN ${req.vins};`;
+    let query = `DELETE FROM vehicle WHERE vin IN ${req.body.vins};`;
     connection.query(query, (err, result) => {
         if(err){
             return res.json(err)
