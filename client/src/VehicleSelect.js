@@ -18,6 +18,7 @@ class VehicleSelect extends Component{
         licenseNumber: false,
         licensePlateText: "",
         vehicleData: null,
+        selected: [],
     }
 
     handleSelectAll = () => {
@@ -54,7 +55,7 @@ class VehicleSelect extends Component{
         this.setState({vehicleData: responseJSON})
     };
 
-    prepare = (data) => {
+    prepare = data => {
         if (!data) {
             return null;
         }
@@ -75,12 +76,35 @@ class VehicleSelect extends Component{
         
         let responseJSON = await response.json();
         this.setState({vehicleData: responseJSON})
-    }
-    
-    onChange = async () => {
-        await this.handleVehicleProjection();
-        return this.prepare(this.state.vehicleData);
     };
+
+    deleteSelected = () => {
+        let vins = this.state.selected;
+        let set = "(";
+        if(vins.length > 0)
+            set += "'" +vins[0]+ "'";
+        for(let i = 1; i < vins.length; i++) {
+            set += ", '"+vins[i]+"'"
+        }
+        set += ")";
+        console.log(set);
+        Axios.delete('/vehicle/delete', {data: {vins: set}})
+            .then((res) => {this.setState({selected: []}); this.handleVehicleProjection(); this.forceUpdate()})
+            .catch((err) => {console.log(err.status)});
+    };
+
+    trim = obj => {
+        let clone = Object.assign({}, obj);
+        delete clone['id'];
+        return clone;
+    };
+
+    isSelected = id => this.state.selected.indexOf(id) !== -1;
+
+    onCheckChange = obj => {let id = obj['id'];
+        this.setState({selected: this.isSelected(id) ?
+        this.state.selected.filter(word => word !== id) :
+        this.state.selected.concat([id])})};
 
     render() {
         return (
@@ -126,7 +150,13 @@ class VehicleSelect extends Component{
                     </form>
                 </div>
                 <div className="column">
-                    <VehicleView view={this.prepare(this.state.vehicleData)} onChange={this.onChange()} id={"viewTable"}/>
+                    <VehicleView view={this.prepare(this.state.vehicleData)}
+                                 selected={this.state.selected}
+                                 deleteSelected={this.deleteSelected}
+                                 onCheckChange={this.onCheckChange}
+                                 isSelected={this.isSelected}
+                                 trim={this.trim}
+                                 id={"viewTable"}/>
                 </div>
             </div>
             
