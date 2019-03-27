@@ -66,6 +66,44 @@ app.get('/driver/select/:licensenumber', (req, res) => {
     })
 });
 
+//insert new driver
+app.put('/driver/insert/:licensenumber/:name/:address/:PhoneNumber/:DateOfBirth', (req, res) => {
+
+    let queryString = 'INSERT INTO Driver(LicenseNumber, Name, Address, PhoneNumber, DateOfBirth) VALUES (';
+    queryString+= "'"+req.params['licensenumber']+"',";
+    queryString+="'"+req.params['name']+"',";
+    queryString+="'"+req.params['address']+"',";
+    queryString+="'"+req.params['PhoneNumber']+"',";
+    queryString+="'"+req.params['DateOfBirth']+"');";
+
+    connection.query(queryString, (err, result) => {
+        if(err){
+            console.log(err);
+            return res.json({'Error': 'Driver cannot be inserted'})
+        } else {
+            return res.json({'success':'Driver is inserted'})
+        }
+    })
+})
+
+//delete driver with licensenumber 
+app.delete('/driver/delete/:licensenumber', (req, res) => {
+    query = `DELETE FROM vehicle where licensenumber = '${req.params.licensenumber}';`
+    connection.query(query, (err, result) => {
+        if(err){
+            return res.json(err)
+        } else {
+            if(result){
+                return res.json({'Success':'driver deleted'})
+            } else {
+                return res.json({'Error': 'Could not find a driver with this license number'})
+            }
+        
+        }
+    })
+})
+
+
 
 
 //select driver who buys all brand of car
