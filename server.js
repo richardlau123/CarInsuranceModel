@@ -208,13 +208,13 @@ app.get('/countvehicleinbrand', (req, res) => {
 
 //insert new vehicle
 app.put('/vehicle/insert/:model/:vin/:licenseplate/:brand/:modelyear/:licensenumber', (req, res) => {
-
+	console.log(`insert new vehicle`)
     let queryString = 'INSERT INTO Vehicle(Model, VIN, LicensePlate, Brand, ModelYear, LicenseNumber) VALUES  (';
     queryString+= "'"+req.params['model']+"',";
     queryString+="'"+req.params['vin']+"',";
     queryString+="'"+req.params['licenseplate']+"',";
     queryString+="'"+req.params['brand']+"',";
-    queryString+=+req.params['modelyear']+",";
+    queryString+="'"+req.params['modelyear']+"',";
     queryString+="'"+req.params['licensenumber']+"');";
 
     connection.query(queryString, (err, result) => {
@@ -225,24 +225,6 @@ app.put('/vehicle/insert/:model/:vin/:licenseplate/:brand/:modelyear/:licensenum
         }
     })
 })
-
-//update to a new licenseplate
-app.put('/vehicle/update/:licenseplate/:newlicenseplate', (req, res) => {
-
-    let queryString = 'update Vehicle set licenseplate = ';
-    queryString+="'"+req.params['newlicenseplate']+"' where licenseplate=";
-    queryString+="'"+req.params['licenseplate']+"'";
-
-    connection.query(queryString, (err, result) => {
-        if(err){
-            console.log(err);
-            return res.json({'Error': 'Could not find a vehicle with this license plate or licenseplate has been taken'})
-        } else {
-            return res.json({'success':'Vehicle is updated'})
-        }
-    })
-})
-
 
 
 //delete vehicles with licenseplate =
