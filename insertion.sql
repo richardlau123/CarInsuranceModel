@@ -32,13 +32,6 @@ VALUES 	('Civic', 'F728FJA8596729FB28', 'A29B02', 'Honda', 2016,'H284859'),
 		('Charger', 'JD3JF931IDF81HF9XH','DIV1BF','Dodge', 2008,'J830174'),
 		('RX7', 'FB382JF391JF91JF9S',NULL,'MAZDA',1983,'R194819');
 
-INSERT INTO CrashReport(ReportID, CrashDate, VIN, licenseNumber, employeeID)
-VALUES	('10101','2016-02-01','F728FJA8596729FB28', 'H284859', '101'),
-		('20010','2018-12-03','G728FJA1000729FB28', 'H283495', '101'),
-		('15457','2017-01-11','BB28FJA8596009GG21', 'B858693', '101'),
-		('10234','2018-03-02','Y028XXA8296729XB00', 'G161002', '102'),
-		('10102','2019-01-02', 'Z72AJAX8596765AB11', 'H683729', '101');
-
 INSERT INTO PaymentDetails(CreditCardNumber, CreditCardCompany, expiryDate, name)
 VALUES	('6789123400009999','Mastercard', '2023-10-01', 'Bob Harvey' ),
 		('1000222233334444', 'Visa','2020-09-01', 'Angelina Jueves'),
@@ -68,6 +61,20 @@ VALUES	('101', 'General'),
 		('103', 'Sport'),
 		('104', 'Family'),
 		('105', 'Family');
+		
+INSERT INTO CrashReport(ReportID, CrashDate, VIN, licenseNumber, employeeID)
+VALUES	('10101','2016-02-01','F728FJA8596729FB28', 'H284859', '101'),
+		('20010','2018-12-03','G728FJA1000729FB28', 'H283495', '101'),
+		('15457','2017-01-11','BB28FJA8596009GG21', 'B858693', '101'),
+		('10234','2018-03-02','Y028XXA8296729XB00', 'G161002', '102'),
+		('10102','2019-01-02', 'Z72AJAX8596765AB11', 'H683729', '101');
+
+INSERT INTO ContractDates(StartDate, ValidDate)
+VALUES	('2018-01-01', '2019-01-01'),
+		('2018-04-14', '2019-04-14'),
+		('2017-10-11', '2018-10-11'),
+		('2017-09-30', '2018-09-30'),
+		('2017-06-05', '2018-06-05');
 
 INSERT INTO Insurance(InsuranceID, StartDate, CreditCardNumber, VIN, EmployeeID)
 VALUES	('10004', '2018-01-01', '6789123400009999', 'F728FJA8596729FB28', '101'),
@@ -82,10 +89,3 @@ VALUES	('12395',1200,'29059'),
 		('12234',19050,'23040'),
 		('23123',60000,'34204'),
 		('12785',1200,'10234');
-
-INSERT INTO ContractDates(StartDate, ValidDate)
-VALUES	('2018-01-01', '2019-01-01'),
-		('2018-04-14', '2019-04-14'),
-		('2017-10-11', '2018-10-11'),
-		('2017-09-30', '2018-09-30'),
-		('2017-06-05', '2018-06-05');
