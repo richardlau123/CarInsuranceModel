@@ -14,8 +14,8 @@ class VehicleView extends Component{
             const isSelected = (obj) => this.props.selected.indexOf(obj['id']) !== -1;
             const onCheckChange = (obj) => this.props.onCheckChange(obj);
             return (
-                <div>
-                    <Table>
+                <React.Fragment>
+                    <Table padding="none">
                     <TableHead>
                         <TableRow>
                             {[""].concat(Object.keys(this.props.view[0]).filter(word => word !== 'id')).map(header => {
@@ -41,10 +41,10 @@ class VehicleView extends Component{
                         })}
                     </TableBody>
                     </Table>
-                    <Button onClick={this.props.deleteSelected} variant="contained" color="primary" style={{align: "right", marginRight:"5px"}}>
+                    <Button onClick={this.props.deleteSelected} variant="contained" color="primary" style={{align: "right", width:"25%"}}>
                         Delete Selected
                     </Button>
-                </div>
+                </React.Fragment>
              )
         } else {
             return(<div></div>)
