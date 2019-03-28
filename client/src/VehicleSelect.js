@@ -173,45 +173,49 @@ class VehicleSelect extends Component{
                             value={this.state.licensePlateText}
                             onChange={(e) => {this.setState({ licensePlateText: e.target.value })}}
                         />
-                        <Button onClick={this.searchByLicensePlate} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
-                            Search By license plate
-                        </Button>
-                        <Button onClick={this.deleteByLicensePlate} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
-                            Delete By license plate
-                        </Button>
-                    </form>
-                </div>
-                <div>
-                    <form className="update-form">
-                        <TextField
-                            label="Old"
-                            className="form-input"
-                            margin="normal"
-                            value={this.state.oldValueText}
-                            onChange={(e) => {this.setState({ oldValueText: e.target.value })}}
-                        />
-						<TextField
-                            label="New"
-                            className="form-input"
-                            margin="normal"
-                            value={this.state.newValueText}
-                            onChange={(e) => {this.setState({ newValueText: e.target.value })}}
-                        />
-						<Button onClick={this.updateByVin} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
-                            Update VIN
-                        </Button>
-                        <Button onClick={this.updateByLicensePlate} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
-                            Update LicensePlate
-                        </Button>
+                        <div className={{display: "inline-block"}}>
+                            <Button onClick={this.searchByLicensePlate} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
+                                Search By license plate
+                            </Button>
+                            <Button onClick={this.deleteByLicensePlate} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
+                                Delete By license plate
+                            </Button>
+                        </div>
                     </form>
                 </div>
                 <div className="column">
-                    <VehicleView view={this.prepare(this.state.vehicleData)}
-                                 selected={this.state.selected}
-                                 deleteSelected={this.deleteSelected}
-                                 onCheckChange={this.onCheckChange}
-                                 trim={this.trim}
-                                 id={"viewTable"}/>
+                    <div>
+                        <form className="update-form">
+                            <TextField
+                                label="Old"
+                                className="form-input"
+                                margin="normal"
+                                value={this.state.oldValueText}
+                                onChange={(e) => {this.setState({ oldValueText: e.target.value })}}
+                            />
+                            <TextField
+                                label="New"
+                                className="form-input"
+                                margin="normal"
+                                value={this.state.newValueText}
+                                onChange={(e) => {this.setState({ newValueText: e.target.value })}}
+                            />
+                            <Button onClick={this.updateByVin} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
+                                Update VIN
+                            </Button>
+                            <Button onClick={this.updateByLicensePlate} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
+                                Update LicensePlate
+                            </Button>
+                        </form>
+                    </div>
+                    <div className="row">
+                        <VehicleView view={this.prepare(this.state.vehicleData)}
+                                     selected={this.state.selected}
+                                     deleteSelected={this.deleteSelected}
+                                     onCheckChange={this.onCheckChange}
+                                     trim={this.trim}
+                                     id={"viewTable"}/>
+                    </div>
                 </div>
             </div>
             
