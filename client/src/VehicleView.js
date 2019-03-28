@@ -6,6 +6,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from "@material-ui/core/Button";
+import ReactTable from "react";
 
 class VehicleView extends Component{
 
@@ -14,8 +15,9 @@ class VehicleView extends Component{
             const isSelected = (obj) => this.props.selected.indexOf(obj['id']) !== -1;
             const onCheckChange = (obj) => this.props.onCheckChange(obj);
             return (
-                <div>
-                    <Table>
+                <React.Fragment>
+                    <div className="column">
+                    <Table padding="none">
                     <TableHead>
                         <TableRow>
                             {[""].concat(Object.keys(this.props.view[0]).filter(word => word !== 'id')).map(header => {
@@ -41,10 +43,11 @@ class VehicleView extends Component{
                         })}
                     </TableBody>
                     </Table>
-                    <Button onClick={this.props.deleteSelected} variant="contained" color="primary" style={{align: "right", marginRight:"5px"}}>
+                    <Button onClick={this.props.deleteSelected} variant="contained" color="primary" style={{align: "right", width:"25%"}}>
                         Delete Selected
                     </Button>
-                </div>
+                    </div>
+                </React.Fragment>
              )
         } else {
             return(<div></div>)
