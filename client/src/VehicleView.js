@@ -6,6 +6,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from "@material-ui/core/Button";
+import ReactTable from "react";
 
 class VehicleView extends Component{
 
@@ -15,6 +16,7 @@ class VehicleView extends Component{
             const onCheckChange = (obj) => this.props.onCheckChange(obj);
             return (
                 <React.Fragment>
+                    <div className="column">
                     <Table padding="none">
                     <TableHead>
                         <TableRow>
@@ -44,6 +46,7 @@ class VehicleView extends Component{
                     <Button onClick={this.props.deleteSelected} variant="contained" color="primary" style={{align: "right", width:"25%"}}>
                         Delete Selected
                     </Button>
+                    </div>
                 </React.Fragment>
              )
         } else {

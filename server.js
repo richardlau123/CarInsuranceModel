@@ -208,7 +208,7 @@ app.get('/countvehicleinbrand', (req, res) => {
 
 //insert new vehicle
 app.put('/vehicle/insert/:model/:vin/:licenseplate/:brand/:modelyear/:licensenumber', (req, res) => {
-	console.log(`insert new vehicle`)
+	console.log(`insert new vehicle`);
     let queryString = 'INSERT INTO Vehicle(Model, VIN, LicensePlate, Brand, ModelYear, LicenseNumber) VALUES  (';
     queryString+= "'"+req.params['model']+"',";
     queryString+="'"+req.params['vin']+"',";
@@ -216,11 +216,14 @@ app.put('/vehicle/insert/:model/:vin/:licenseplate/:brand/:modelyear/:licensenum
     queryString+="'"+req.params['brand']+"',";
     queryString+="'"+req.params['modelyear']+"',";
     queryString+="'"+req.params['licensenumber']+"');";
+    console.log(queryString);
 
     connection.query(queryString, (err, result) => {
         if(err){
+            console.log(err);
             return res.json({'Error': 'Vehicle cannot be inserted'})
         } else {
+            console.log("200");
             return res.json({'success':'Vehicle is inserted'})
         }
     })
