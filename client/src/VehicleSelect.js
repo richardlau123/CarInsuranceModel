@@ -194,7 +194,7 @@ class VehicleSelect extends Component{
                             </Button>
                         </div>
                         <div className="row">
-                            <Button onClick={this.handleCountVehicleBrand} variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
+                            <Button onClick={this.handleCountVehicleBrand} size="small" variant="contained" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
                                 Get vehicle count by brand
                             </Button>
                         </div>
@@ -217,12 +217,12 @@ class VehicleSelect extends Component{
                                 onChange={(e) => {this.setState({ licensePlateText: e.target.value })}}
                             />
                             <div className="row">
-                            <Button className="button-input" onClick={this.searchByLicensePlate} variant="contained" color="primary" style={{alignSelf: "left", marginRight:"5px"}}>
+                            <Button className="button-input" onClick={this.searchByLicensePlate} size="small" variant="contained" color="primary" style={{alignSelf: "left", marginRight:"5px"}}>
                                 Search By license plate
                             </Button>
                             </div>
                             <div className="row">
-                            <Button className="button-input" onClick={this.deleteByLicensePlate} variant="contained" color="primary" style={{alignSelf: "left", marginRight:"5px"}}>
+                            <Button className="button-input" onClick={this.deleteByLicensePlate} size="small" variant="contained" color="primary" style={{alignSelf: "left", marginRight:"5px"}}>
                                 Delete By license plate
                             </Button>
                             </div>
