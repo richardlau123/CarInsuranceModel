@@ -10,7 +10,7 @@ CREATE TABLE EmergencyContact(
 PhoneNumber char(20) PRIMARY KEY, 
 Name char(20), 
 LicenseNumber char(20), 
-FOREIGN KEY (LicenseNumber) references Driver(LicenseNumber)
+FOREIGN KEY (LicenseNumber) references Driver(LicenseNumber) on delete cascade
 );
 
 CREATE TABLE Vehicle(
@@ -20,13 +20,13 @@ LicensePlate char(20),
 Brand char(20), 
 ModelYear int, 
 LicenseNumber char(20) not null, 
-FOREIGN KEY (LicenseNumber) references Driver(LicenseNumber)
+FOREIGN KEY (LicenseNumber) references Driver(LicenseNumber) on delete cascade
 );
 
 CREATE TABLE VehicleFuel(
 VIN char(20) PRIMARY KEY,
 FuelType char(20),
-FOREIGN KEY (VIN) references Vehicle(VIN)
+FOREIGN KEY (VIN) references Vehicle(VIN) on delete cascade
 );
 
 CREATE TABLE Agent(
@@ -37,13 +37,13 @@ name char(20)
 CREATE TABLE CrashAgent(
 EmployeeID char(20) PRIMARY KEY,
 AuthorizationType char(20),
-FOREIGN KEY (EmployeeID) references Agent(EmployeeID)
+FOREIGN KEY (EmployeeID) references Agent(EmployeeID) on delete cascade
 );
 
 CREATE TABLE InsuranceAgent(
 EmployeeID char(20) PRIMARY KEY,
 InsuranceSpecialization char(20),
-FOREIGN KEY (EmployeeID) references Agent(EmployeeID)
+FOREIGN KEY (EmployeeID) references Agent(EmployeeID) on delete cascade
 );
 
 CREATE TABLE CrashReport(
@@ -52,8 +52,8 @@ CrashDate date not null,
 VIN char(20) not null,
 LicenseNumber char(20) not null,
 EmployeeID char(20) not null,
-FOREIGN KEY (LicenseNumber) references Driver(LicenseNumber),
-FOREIGN KEY (EmployeeID) references CrashAgent(EmployeeID),
+FOREIGN KEY (LicenseNumber) references Driver(LicenseNumber) on delete cascade,
+FOREIGN KEY (EmployeeID) references CrashAgent(EmployeeID) on delete cascade,
 FOREIGN KEY (VIN) references Vehicle(VIN) on delete cascade
 );
 
@@ -75,16 +75,16 @@ StartDate date not null,
 CreditCardNumber char(20) not null,
 VIN char(20) not null, 
 EmployeeID char(20) not null,
-FOREIGN KEY (StartDate) references ContractDates(StartDate),
-FOREIGN KEY (VIN) references Vehicle(VIN),
-FOREIGN KEY (EmployeeID) references InsuranceAgent(EmployeeID),
-FOREIGN KEY (CreditCardNumber) references PaymentDetails(CreditCardNumber)
+FOREIGN KEY (StartDate) references ContractDates(StartDate) on delete cascade,
+FOREIGN KEY (EmployeeID) references InsuranceAgent(EmployeeID) on delete cascade,
+FOREIGN KEY (CreditCardNumber) references PaymentDetails(CreditCardNumber) on delete cascade,
+FOREIGN KEY (VIN) references Vehicle(VIN) on delete cascade
 );
 
 CREATE TABLE Invoice(
 InvoiceNumber char(20) PRIMARY KEY,
 Cost int, 
 InsuranceID char(20) ,
-FOREIGN KEY (InsuranceID) references Insurance(InsuranceID)
+FOREIGN KEY (InsuranceID) references Insurance(InsuranceID) on delete cascade
 );
 
