@@ -52,9 +52,9 @@ CrashDate date not null,
 VIN char(20) not null,
 LicenseNumber char(20) not null,
 EmployeeID char(20) not null,
-FOREIGN KEY (VIN) references Vehicle(VIN),
 FOREIGN KEY (LicenseNumber) references Driver(LicenseNumber),
-FOREIGN KEY (EmployeeID) references CrashAgent(EmployeeID)
+FOREIGN KEY (EmployeeID) references CrashAgent(EmployeeID),
+FOREIGN KEY (VIN) references Vehicle(VIN) on delete cascade
 );
 
 CREATE TABLE PaymentDetails(
