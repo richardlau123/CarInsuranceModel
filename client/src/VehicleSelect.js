@@ -51,8 +51,7 @@ class VehicleSelect extends Component{
         let response = await fetch(`/vehicle/projection/${model}/true/${licensePlate}/${brand}/${modelYear}/${licenseNumber}`);
         
         let responseJSON = await response.json();
-        this.setState({vehicleData: responseJSON})
-            
+        this.setState({vehicleData: responseJSON});
     };
 
     deleteByLicensePlate = async () => {
@@ -157,15 +156,15 @@ class VehicleSelect extends Component{
 	insertVehicle = async () => {
 		console.log("insertVehicle");
         Axios.put(`/vehicle/insert/${this.state.insertVText1}/${this.state.insertVText2}/${this.state.insertVText3}/${this.state.insertVText4}/${this.state.insertVText5}/${this.state.insertVText6}`)
-			.then((res) => {this.handleVehicleProjection();})
-            .catch((err) => {console.log(err.status);});
+			.then((res) => {alert("successfully added vehicle"); this.handleVehicleProjection();})
+            .catch((err) => {alert("failed to add vehicle");});
     };
 
 	insertDriver = async () => {
 		console.log("insertDriver");
         Axios.put(`/driver/insert/${this.state.insertDText1}/${this.state.insertDText2}/${this.state.insertDText3}/${this.state.insertDText4}/${this.state.insertDText5}`)
-			.then((res) => {this.handleVehicleProjection();})
-            .catch((err) => {console.log(err.status);});
+			.then((res) => {alert("successfully added driver"); this.handleVehicleProjection();})
+            .catch((err) => {alert("Failed to add driver")});
     };
 
     render() {
