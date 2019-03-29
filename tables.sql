@@ -89,7 +89,7 @@ FOREIGN KEY (InsuranceID) references Insurance(InsuranceID) on delete cascade
 );
 
 INSERT INTO Driver(LicenseNumber, Name, Address, PhoneNumber, DateOfBirth) 
-VALUES ('H284859', 'JoeSmith', '1011stSt, Smallsville', '6046044040', '1980-01-01'),
+VALUES ('H284859', 'JoeSmith', '1011 Queen St, Smallsville', '6046044040', '1980-01-01'),
 ('H283495','Juan Garcia', '101 1st St, Smallsville', '2044467890', '1995-05-10'),
 ('B858693', 'Jackson Polluck', '1600 Pennsylvania Avenue NW, Washington', '1234567890', '1991-12-11'),
 ('G161002', 'Marshall Mathers', '5b 1440 Lake St, Gotham', '9998887777', '1964-03-30'),
@@ -100,7 +100,20 @@ VALUES ('H284859', 'JoeSmith', '1011stSt, Smallsville', '6046044040', '1980-01-0
 ('J184818','Michael Mix','4741 Pratt Ave, Maple Ridge','3912918593', '1984-3-7'),
 ('S391849','Freeda Qualls','4728 Pinnickinick St','2391851729', '1947-2-6'),
 ('R194819','James Nace','1467 Mutton Rd, Tacoma','3606951758', '1922-7-13'),
-('J830174','Ryan Sanchez','555 Queens st, Jersey','3918572938', '1975-11-9');
+('J830174','Ryan Sanchez','555 Queens st, Jersey','3918572938', '1975-11-9'),
+
+('A9F9AF1', 'HelloSmith', '1012 King St, New York', '2839185928', '1982-02-03'),
+('8C1LF81','Juan Jacksons', '101 2nd St, York', '1957185282', '1997-02-20'),
+('9J8J19F', 'Jack Lu', '1601 Pennsylvania Avenue NE, Washington', '1081758275', '1993-4-11'),
+('G161003', 'Ken Chen', '5d 1540 Lake St, Gotham', '9185729175', '1974-04-30'),
+('H683718', 'Crangis McBasketball', '500 6th Ave, Sydney', '4041825298', '1923-01-31'),
+('A118582', 'Tony Blocks', '600 Alberta st, Vancouver','7781826243', '1948-05-22'),
+('L219814', 'Linda Chess', '1488 41th Ave, Mission','2501182694', '1982-4-30'),
+('C292958','Anna Leos','897 Mack St, Seattle','3601285758', '1997-8-1'),
+('J116818','Mike Mich','4749 Maze Ave, Hope','3918172593', '1984-3-7'),
+('S382849','Amanda Sams','4728 Pinnickinick St','2392876729', '1947-2-6'),
+('R118619','Jimmy Nacel','1467 Pacific Rd, Tacoma','3601826758', '1922-7-13'),
+('J828574','Willy Sanchezs','556 Queens st, Squamish','3911826938', '1975-11-9');
 
 
 INSERT INTO EmergencyContact(PhoneNumber, Name, LicenseNumber)
@@ -114,13 +127,21 @@ INSERT INTO Vehicle(Model, VIN, LicensePlate, Brand, ModelYear, LicenseNumber)
 VALUES 	('Civic', 'F728FJA8596729FB28', 'A29B02', 'Honda', 2016,'H284859'),
 		('Stingray', 'GA92JC91091409FADC', 'HOTROD', 'Corvette', 2015, 'H284859'),
 		('Challenger', 'GA928J1J991409FADC', 'A9C8A8', 'Dodge', 2012,'H284859'),
-		('MAZDA3', 'MA3J9F9H91JF91JF9S',NULL,'MAZDA',2005,'H284859'),
+		('Mazda3', 'MA3J9F9H91JF91JF9S',NULL,'Mazda',2005,'H284859'),
+		('86','JPMA3JJF8JJF91JF9S','JIAL18','Toyota',2018,'H284859'),
+		('Cherokee','JPM81829682F91JF9S','ACDEJA','Jeep',1992,'H284859'),
+		('180D','BB291J91FJA249GG21','91JSLL','Mercedes-Benz',1959,'H284859'),
 		('Stingray', 'G728FJA1000729FB28', 'A9C1J9', 'Corvette', 2018, 'H283495'),
 		('Odyssey', 'BB28FJA8596009GG21', '666EVL', 'Honda', 2001, 'B858693'),
 		('Challenger', 'Y028XXA8296729XB00', 'ABC123', 'Dodge', 2012,'G161002'),
 		('Accord', 'Z72AJAX8596765AB11', '897281JD', 'Honda', 2009,'H683729'),
 		('Charger', 'JD3JF931IDF81HF9XH','DIV1BF','Dodge', 2008,'J830174'),
-		('RX7', 'FB382JF391JF91JF9S',NULL,'MAZDA',1983,'R194819');
+		('RX7', 'FB382JF391JF91JF9S',NULL,'Mazda',1983,'R194819'),
+		('Mazda5','FB382JF81J8181JF9S','J81A89','Mazda',2009,'A9F9AF1'),
+		('Wrangler','JPM81818301751JF9S','A81A71','Jeep',1996,'8C1LF81'),
+		('S2000', 'BB28F175817249GG21', 'A8C81B', 'Honda', 2001, '9J8J19F'),
+		('220S','BB2192J91JA249GG21','9JABCM','Mercedes-Benz',1965,'G161003')
+		;
 
 INSERT INTO PaymentDetails(CreditCardNumber, CreditCardCompany, expiryDate, name)
 VALUES	('6789123400009999','Mastercard', '2023-10-01', 'Bob Harvey' ),
