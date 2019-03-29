@@ -98,8 +98,8 @@ class VehicleSelect extends Component{
         this.setState({vehicleData: responseJSON})
     }
 
-    handleCountVehicleModel = async () => {
-        let response = await fetch('/countvehicleinbrand');
+    handleCountMultiVehicleDriver = async () => {
+        let response = await fetch('/countMultiVehicleDriver');
         
         let responseJSON = await response.json();
         this.setState({vehicleData: responseJSON})
@@ -203,8 +203,8 @@ class VehicleSelect extends Component{
                             <Button onClick={this.handleCountBrand} variant="contained" size="small" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
                                 Get distinct vehicle brand count
                             </Button>
-                            <Button onClick={this.handleCountVehicleModel} variant="contained" size="small" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
-                                Get vehicle count by model
+                            <Button onClick={this.handleCountMultiVehicleDriver} variant="contained" size="small" color="primary" style={{alignSelf: "center", marginRight:"5px"}}>
+                                Get multi vehicle drivers
                             </Button>
                         </div>
                         <div className="row">

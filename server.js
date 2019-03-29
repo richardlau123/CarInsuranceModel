@@ -190,8 +190,8 @@ app.get('/countbrand', (req, res) => {
     })
 })
 
-app.get('/countvehicleinbrand', (req, res) => {
-    query = "select brand,model,count(brand) as 'count' from vehicle group by model, brand;";
+app.get('/countMultiVehicleDriver', (req, res) => {
+    query = "SELECT d.name from driver d where d.licensenumber IN (SELECT v.licensenumber from vehicle v group by v.licensenumber having count(*) > 1) ;"
     
     connection.query(query, (err, result) => {
         if(err){
