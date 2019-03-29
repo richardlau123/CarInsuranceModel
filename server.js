@@ -191,8 +191,8 @@ app.get('/countbrand', (req, res) => {
 })
 
 app.get('/countvehicleinbrand', (req, res) => {
-    query = "select brand,count(*) as 'count' from vehicle group by brand;";
-
+    query = "select brand,model,count(brand) as 'count' from vehicle group by model, brand;";
+    
     connection.query(query, (err, result) => {
         if(err){
             return res.json(err)
