@@ -157,14 +157,14 @@ class VehicleSelect extends Component{
 		console.log("insertVehicle");
         Axios.put(`/vehicle/insert/${this.state.insertVText1}/${this.state.insertVText2}/${this.state.insertVText3}/${this.state.insertVText4}/${this.state.insertVText5}/${this.state.insertVText6}`)
 			.then((res) => {alert("successfully added vehicle"); this.handleVehicleProjection();})
-            .catch((err) => {alert("failed to add vehicle");});
+            .catch((err) => {alert("failed to add vehicle: "+err.response.data.error);});
     };
 
 	insertDriver = async () => {
 		console.log("insertDriver");
         Axios.put(`/driver/insert/${this.state.insertDText1}/${this.state.insertDText2}/${this.state.insertDText3}/${this.state.insertDText4}/${this.state.insertDText5}`)
 			.then((res) => {alert("successfully added driver"); this.handleVehicleProjection();})
-            .catch((err) => {alert("Failed to add driver")});
+            .catch((err) => {alert("Failed to add driver: "+err.response.data.error)});
     };
 
     render() {
