@@ -73,7 +73,8 @@ app.put('/driver/insert/:licensenumber/:name/:address/:PhoneNumber/:DateOfBirth'
 
     connection.query(queryString, (err, result) => {
         if(err){
-            return res.json({'Error': 'Driver cannot be inserted'})
+            console.log(err);
+            return res.status(400).send({error: err.sqlMessage});
         } else {
             return res.json({'success':'Driver is inserted'})
         }
@@ -199,7 +200,7 @@ app.get('/countvehicleinbrand', (req, res) => {
             if(result){
                 return res.json(result)
             } else {
-                return res.json([{'Error': 'query failed'}])
+                return res.status(400).send({error: err.sqlMessage});
             }
         
         }
@@ -221,7 +222,7 @@ app.put('/vehicle/insert/:model/:vin/:licenseplate/:brand/:modelyear/:licensenum
     connection.query(queryString, (err, result) => {
         if(err){
             console.log(err);
-            return res.json({'Error': 'Vehicle cannot be inserted'})
+            return res.status(400).send({error: err.sqlMessage});
         } else {
             console.log("200");
             return res.json({'success':'Vehicle is inserted'})
